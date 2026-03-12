@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "attendance.css">
+</head>
+<body>
+    <nav class = "navbar">
+        <h1 class = "nav-heading">Attendance Tracker</h1>
+            <ul class = "nav-items">
+            <li>Home</li>
+            <li id = "addStudentButton">Add Student</li>
+            <li>Delete Student</li>
+            </ul>
+    </nav>
+    <div class = "box" id = "box">
+        <h1 class = "heading">Student List</h1>
+        <div class = "studentRow" id = "studentRow">
+            <p>Name</p>
+            <p>Class</p>
+            <p>Attendance percentage</p>
+            <a class = "openButton">open</a>
+            <button class = "deleteBtn">delete</button>
+        </div>
+    </div>
+    <div class="modal" id="addStudentModal">
+
+    <div class="modalContent">
+
+        <h2>Add Student</h2>
+        <label>Name</label>
+        <input type="text" placeholder="Enter name" id = "inputName">
+
+        <label>Class</label>
+        <input type="text" placeholder="Enter class" id = "inputClass">
+
+        <label>Total Classes</label>
+        <input type="number" id = "inputTotClass">
+
+        <label>Classes Attended</label>
+        <input type="number" id = "inputClassAttended">
+
+        <div class="modalButtons">
+            <button class="addBtn" id = "addBtn">Add Student</button>
+            <button class="cancelBtn" id = "cancelBtn">Cancel</button>
+        </div>
+
+    </div>
+
+</div>
+<script src = "attendance.js"></script>
+</body>
+</html>
