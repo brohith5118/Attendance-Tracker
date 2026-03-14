@@ -9,8 +9,6 @@ body{
     color: #ffffff;
     margin: 0;
 }
-
-
 .navbar{
     display: flex;
     align-items: center;
@@ -65,6 +63,15 @@ body{
     border-radius: 8px;
     margin-top: 120px;
 }
+.studentHeader{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+    color:white;
+    font-weight:bold;
+    align-items: center;
+    justify-items: center;
+    padding: 10px;
+}
 .studentRow{
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
@@ -79,6 +86,17 @@ body{
 .openButton{
     color: aqua;
     text-decoration: underline;
+    cursor: pointer;
+}
+.deleteBtn{
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    width: 80px;
+    color: #ef4444;
+    text-decoration: underline;
+    cursor: pointer;
 }
 .modal{
     display: none;
@@ -124,6 +142,7 @@ body{
     padding: 6px 12px;
     color: white;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .cancelBtn{
@@ -132,13 +151,5 @@ body{
     padding: 6px 12px;
     color: white;
     border-radius: 4px;
-}
-.deleteBtn{
-    background-color: transparent;
-    border: none;
-    border-radius: 10px;
-    height: 30px;
-    width: 80px;
-    color: #ef4444;
-    text-decoration: underline;
+    cursor: pointer;
 }

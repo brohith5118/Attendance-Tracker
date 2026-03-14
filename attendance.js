@@ -24,14 +24,30 @@ addStudentButton.onclick = () => {
 }
 addBtn.onclick = () => {
     let newStudent = {
-        name: inputName.value,
-        section: inputClass.value,
+        name: inputName.value.trim(),
+        section: inputClass.value.trim(),
         totClass: parseFloat(inputTotClass.value),
         classAttended: parseFloat(inputClassAttended.value),
         uniqueNumber: numberCount,
     }
+    if(newStudent.name === "" || newStudent.section === ""){
+        alert("Name and Class cannot be empty");
+        return;
+    }
+    if(isNaN(newStudent.totClass)){
+        newStudent.totClass = 0;
+    }
+    if(isNaN(newStudent.classAttended)){
+        newStudent.classAttended = 0;
+    }
+    if(newStudent.classAttended > newStudent.totClass){
+        alert("Classes attended cannot exceed total classes");
+        return;
+    }
     studentList.push(newStudent);
     createStudent(newStudent);
+    
+    addStudentModal.style.display = "none";
 
     localStorage.setItem("studentList",JSON.stringify(studentList));
 
@@ -73,7 +89,6 @@ function createStudent(studentDetails){
 
     let box = document.getElementById("box");
     box.appendChild(div);
-    addStudentModal.style.display = "none";
     numberCount++;
 
     deleteBtn.onclick = () => {
