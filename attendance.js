@@ -2,50 +2,52 @@ let studentList = [];
 if(localStorage.getItem("studentList") !== null){
     studentList = JSON.parse(localStorage.getItem("studentList"));
 }
-
 let numberCount = 0;
+
+if (studentList.length > 0) {
+    numberCount = studentList[studentList.length - 1].uniqueNumber + 1;
+}
 let addStudentButton = document.getElementById("addStudentButton");
 
+let addStudentModal = document.getElementById("addStudentModal");
+
+let addBtn = document.getElementById("addBtn");
+let cancelBtn = document.getElementById("cancelBtn");
+
+let inputName = document.getElementById("inputName");
+let inputClass = document.getElementById("inputClass");
+let inputTotClass = document.getElementById("inputTotClass");
+let inputClassAttended = document.getElementById("inputClassAttended");
+
 addStudentButton.onclick = () => {
-    let addStudentModal = document.getElementById("addStudentModal");
     addStudentModal.style.display = "flex";
+}
+addBtn.onclick = () => {
+    let newStudent = {
+        name: inputName.value,
+        section: inputClass.value,
+        totClass: parseFloat(inputTotClass.value),
+        classAttended: parseFloat(inputClassAttended.value),
+        uniqueNumber: numberCount,
+    }
+    studentList.push(newStudent);
+    createStudent(newStudent);
 
-    let addBtn = document.getElementById("addBtn");
-    let cancelBtn = document.getElementById("cancelBtn");
+    localStorage.setItem("studentList",JSON.stringify(studentList));
 
-    let inputName = document.getElementById("inputName");
-    let inputClass = document.getElementById("inputClass");
-    let inputTotClass = document.getElementById("inputTotClass");
-    let inputClassAttended = document.getElementById("inputClassAttended");
-
+    inputName.value = "";
+    inputClass.value = "";
+    inputTotClass.value = "";
+    inputClassAttended.value = "";
     
-    addBtn.onclick = () => {
-        let newStudent = {
-            name: inputName.value,
-            section: inputClass.value,
-            totClass: parseFloat(inputTotClass.value),
-            classAttended: parseFloat(inputClassAttended.value),
-            uniqueNumber: numberCount,
-        }
-        studentList.push(newStudent);
-        createStudent(newStudent);
+}
 
-        localStorage.setItem("studentList",JSON.stringify(studentList));
-
-        inputName.value = "";
-        inputClass.value = "";
-        inputTotClass.value = "";
-        inputClassAttended.value = "";
-        
-    }
-
-    cancelBtn.onclick = () => {
-        addStudentModal.style.display = "none";
-        inputName.value = "";
-        inputClass.value = "";
-        inputTotClass.value = "";
-        inputClassAttended.value = "";
-    }
+cancelBtn.onclick = () => {
+    addStudentModal.style.display = "none";
+    inputName.value = "";
+    inputClass.value = "";
+    inputTotClass.value = "";
+    inputClassAttended.value = "";
 }
 
 function createStudent(studentDetails){
@@ -60,15 +62,47 @@ function createStudent(studentDetails){
     let open = document.createElement("a");
     open.classList.add("openButton");
     open.textContent = "open"
+    let deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("deleteBtn");
+    deleteBtn.textContent = "delete";
     div.appendChild(Name);
     div.appendChild(section);
     div.appendChild(percentage);
     div.appendChild(open);
+    div.appendChild(deleteBtn);
 
     let box = document.getElementById("box");
     box.appendChild(div);
     addStudentModal.style.display = "none";
     numberCount++;
+
+    deleteBtn.onclick = () => {
+        let deleteModal = document.getElementById("deleteModal");
+        deleteModal.style.display = "flex";
+
+        let deleteConfirm = document.getElementById("deleteConfirm");
+        let deleteCancel = document.getElementById("deleteCancel");
+
+        deleteCancel.onclick = () => {
+        deleteModal.style.display = "none";
+        }
+
+        deleteConfirm.onclick = () => {
+            deleteStudent(studentDetails);
+            box.removeChild(div);
+            deleteModal.style.display = "none";
+        }
+    }
+}
+
+function deleteStudent(studentDetails){
+    let index = studentList.findIndex(function(eachElement){
+        if(eachElement.uniqueNumber === studentDetails.uniqueNumber){
+            return true;
+        }
+    });
+    studentList.splice(index,1);
+    localStorage.setItem("studentList",JSON.stringify(studentList));
 }
 
 for(let studentDetails of studentList){
