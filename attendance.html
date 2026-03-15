@@ -12,7 +12,6 @@
             <ul class = "nav-items">
             <li>Home</li>
             <li id = "addStudentButton">Add Student</li>
-            <li>Delete Student</li>
             </ul>
     </nav>
     <div class = "box" id = "box">
@@ -56,6 +55,29 @@
         <div class="modalButtons">
             <button class = "deleteBtn" id = "deleteConfirm">Delete</button>
             <button class="cancelBtn" id = "deleteCancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class = "studentScreen" id = "studentScreen">
+    <div class = "closeBtn" id = "closeBtn"><button class = "cancelBtn">Close</button></div>
+    
+    <p class = "studentDetails" id = "studentName">Name: </p>
+    <p class = "studentDetails" id = "studentSection">Class: </p>
+    <p class = "studentDetails" id = "studentPercentage">Attendance Percentage: </p>
+    <p class = "studentDetails"id = "studentTotClass">Total Classes Attended: </p>
+    <div class = "editAttendance">
+        <p class = "studentDetails" id = "studentAttendedClass">Classes Attended: </p>
+        <div>
+            <button class = "editButtonIncrease" id = "attendedIncreaseBtn">Increase</button>
+            <button class = "editButtonDecrease" id = "attendedDecreaseBtn">Decrease</button>
+        </div>
+    </div>
+    <div class = "editAttendance">
+        <p class = "studentDetails" id = "studentAbsentClass">Classes Absent: </p>
+        <div>
+            <button class = "editButtonIncrease" id = "absentIncreaseBtn">Increase</button>
+            <button class = "editButtonDecrease" id = "absentDecreaseBtn">Decrease</button>
         </div>
     </div>
 </div>

@@ -7,6 +7,19 @@ let numberCount = 0;
 if (studentList.length > 0) {
     numberCount = studentList[studentList.length - 1].uniqueNumber + 1;
 }
+
+
+let box = document.getElementById("box");
+let studentScreen = document.getElementById("studentScreen");
+
+let studentName = document.getElementById("studentName");
+let studentSection = document.getElementById("studentSection");
+let studentPercentage = document.getElementById("studentPercentage");
+let studentTotClass = document.getElementById("studentTotClass");
+let studentAttendedClass = document.getElementById("studentAttendedClass");
+let studentAbsentClass = document.getElementById("studentAbsentClass");
+
+
 let addStudentButton = document.getElementById("addStudentButton");
 
 let addStudentModal = document.getElementById("addStudentModal");
@@ -75,6 +88,11 @@ function createStudent(studentDetails){
     section.textContent = studentDetails.section;
     let  percentage = document.createElement("p");
     percentage.textContent = (studentDetails.classAttended/studentDetails.totClass*100).toFixed(1) + '%';
+    if(studentDetails.classAttended/studentDetails.totClass*100<75){
+        percentage.style.color = "red";
+    }else if(studentDetails.classAttended/studentDetails.totClass*100>=90){
+        percentage.style.color = "#32ba56";
+    }
     let open = document.createElement("a");
     open.classList.add("openButton");
     open.textContent = "open"
@@ -87,22 +105,28 @@ function createStudent(studentDetails){
     div.appendChild(open);
     div.appendChild(deleteBtn);
 
-    let box = document.getElementById("box");
     box.appendChild(div);
     numberCount++;
+    
 
+    open.onclick = () =>{
+        studentScreen.style.display = "block";
+        box.style.display = "none";
+        viewDetails(studentDetails);
+    }
+    
     deleteBtn.onclick = () => {
         let deleteModal = document.getElementById("deleteModal");
         deleteModal.style.display = "flex";
-
+        
         let deleteConfirm = document.getElementById("deleteConfirm");
         let deleteCancel = document.getElementById("deleteCancel");
 
         deleteCancel.onclick = () => {
         deleteModal.style.display = "none";
-        }
-
-        deleteConfirm.onclick = () => {
+    }
+    
+    deleteConfirm.onclick = () => {
             deleteStudent(studentDetails);
             box.removeChild(div);
             deleteModal.style.display = "none";
@@ -120,6 +144,65 @@ function deleteStudent(studentDetails){
     localStorage.setItem("studentList",JSON.stringify(studentList));
 }
 
+function viewDetails(studentDetails){
+    studentName.textContent = "Name: "+studentDetails.name;
+    studentSection.textContent = "Class: "+studentDetails.section;
+    studentPercentage.textContent = "Attendance Percentage: "+(studentDetails.classAttended/studentDetails.totClass*100).toFixed(1)+"%";
+    studentTotClass.textContent = "Total Classes: "+studentDetails.totClass;
+    studentAttendedClass.textContent = "Attended Classes: "+studentDetails.classAttended;
+    studentAbsentClass.textContent = "Absent Classes: "+(studentDetails.totClass - studentDetails.classAttended);
+    
+    updateAttendance(studentDetails);
+}
+
+function updateAttendance(studentDetails){
+    let attendedIncreaseBtn = document.getElementById("attendedIncreaseBtn");
+    let attendedDecreaseBtn = document.getElementById("attendedDecreaseBtn");
+    let absentIncreaseBtn = document.getElementById("absentIncreaseBtn");
+    let absentDecreaseBtn = document.getElementById("absentDecreaseBtn");
+    
+    attendedIncreaseBtn.onclick = () =>{
+        studentDetails.classAttended += 1;
+        studentDetails.totClass += 1;
+        studentAttendedClass.textContent = "Attended Classes: "+studentDetails.classAttended;
+        studentPercentage.textContent = "Attendance Percentage: "+(studentDetails.classAttended/studentDetails.totClass*100).toFixed(1)+"%";
+        studentTotClass.textContent = "Total Classes: "+studentDetails.totClass;
+        localStorage.setItem("studentList",JSON.stringify(studentList));
+    }
+    attendedDecreaseBtn.onclick = () =>{
+        if(studentDetails.classAttended>0){
+            studentDetails.classAttended -= 1;
+            studentDetails.totClass -= 1;
+            studentAttendedClass.textContent = "Attended Classes: "+studentDetails.classAttended;
+            studentTotClass.textContent = "Total Classes: "+studentDetails.totClass;
+            studentPercentage.textContent = "Attendance Percentage: "+(studentDetails.classAttended/studentDetails.totClass*100).toFixed(1)+"%";
+            localStorage.setItem("studentList",JSON.stringify(studentList));
+        }
+    }
+    absentIncreaseBtn.onclick = () =>{
+        studentDetails.totClass += 1;
+        studentAbsentClass.textContent = "Absent Classes: "+(studentDetails.totClass - studentDetails.classAttended);
+        studentPercentage.textContent = "Attendance Percentage: "+(studentDetails.classAttended/studentDetails.totClass*100).toFixed(1)+"%";
+        studentTotClass.textContent = "Total Classes: "+studentDetails.totClass;
+        localStorage.setItem("studentList",JSON.stringify(studentList));
+    }
+    absentDecreaseBtn.onclick = () =>{
+        if(studentDetails.totClass > studentDetails.classAttended){
+            studentDetails.totClass -= 1;
+            studentAbsentClass.textContent = "Absent Classes: "+(studentDetails.totClass - studentDetails.classAttended);
+            studentPercentage.textContent = "Attendance Percentage: "+(studentDetails.classAttended/studentDetails.totClass*100).toFixed(1)+"%";
+            studentTotClass.textContent = "Total Classes: "+studentDetails.totClass;
+            localStorage.setItem("studentList",JSON.stringify(studentList));
+        }
+    }
+}
+
 for(let studentDetails of studentList){
     createStudent(studentDetails);
+}
+    
+let closeBtn = document.getElementById("closeBtn");
+closeBtn.onclick = () =>{
+    studentScreen.style.display = "none";
+    box.style.display = "block";
 }

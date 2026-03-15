@@ -3,8 +3,8 @@ body{
     margin: 0;
     font-family: Arial, sans-serif;
     text-align: center;
+    color: #ffffff;
 }
-
 .nav-heading{
     color: #ffffff;
     margin: 0;
@@ -55,6 +55,7 @@ body{
 }
     
 .box{
+    display: block;
     margin: 30px auto;
     width: 80vw;
     max-width: 900px;
@@ -151,5 +152,54 @@ body{
     padding: 6px 12px;
     color: white;
     border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.studentScreen{
+    display:none;
+    margin: 30px auto;
+    width: 80vw;
+    max-width: 900px;
+    border: 1px solid  #bff1ef;
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 120px;
+    text-align: left;
+}
+
+.studentDetails{
+    font-size: 20px;
+    margin: 20px 0;
+}
+.closeBtn{
+    width: 100%;
+    display: flex;
+    justify-content:flex-end;
+}
+
+.editAttendance{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.editButtonIncrease{
+    border: 2px solid rgb(5, 174, 5);
+    color: rgb(5, 213, 5);
+    background-color: transparent;
+    height: 25px;
+    border-radius: 7px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.editButtonDecrease{
+    border: 2px solid rgb(219, 9, 9);
+    color: red;
+    background-color: transparent;
+    height: 25px;
+    border-radius: 7px;
+    margin-left: 10px;
     cursor: pointer;
 }
